@@ -19,6 +19,18 @@ func NewWeaponRepo(pg *psql.PSQL) WeaponRepo {
 	return WeaponRepo{pg}
 }
 
+func (r WeaponRepo) Add(weapon entities.WeaponDTO) error {
+	if _, err := r.Sq.Insert("weapon").
+		Columns("name", "attack", "weight").
+		Values(weapon.Name, weapon.Attack, weapon.Weight).Exec(); err != nil {
+		log.Println(err)
+		return fiber.NewError(http.StatusInternalServerError,
+			"произошла ошибка при добавлении оружия")
+	}
+
+	return nil
+}
+
 type AllWeaponsQP struct {
 	Attack  []float32 `query:"attack"`
 	Weight  []float32 `query:"weight"`
@@ -66,4 +78,29 @@ func (r WeaponRepo) All(qp AllWeaponsQP) (weapons entities.AllWeaponsDTO, err er
 	}
 
 	return weapons, nil
+}
+
+func (r WeaponRepo) Edit(weapon entities.WeaponDTO, id uint16) error {
+	if _, err := r.Sq.Update("weapon").
+		Set("name", weapon.Name).
+		Set("attack", weapon.Attack).
+		Set("weight", weapon.Weight).
+		Where("weapon_id = ?", id).Exec(); err != nil {
+		log.Println(err)
+		return fiber.NewError(http.StatusInternalServerError,
+			"произошла ошибка при редактировании оружия")
+	}
+
+	return nil
+}
+
+func (r WeaponRepo) Delete(id uint16) error {
+	if _, err := r.Sq.Delete("weapon").
+		Where("weapon_id = ?", id).Exec(); err != nil {
+		log.Println(err)
+		return fiber.NewError(http.StatusInternalServerError,
+			"произошла ошибка при удалении оружия")
+	}
+
+	return nil
 }

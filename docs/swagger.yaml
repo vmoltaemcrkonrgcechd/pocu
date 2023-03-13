@@ -27,6 +27,15 @@ definitions:
       weight:
         type: number
     type: object
+  entities.WeaponDTO:
+    properties:
+      attack:
+        type: number
+      name:
+        type: string
+      weight:
+        type: number
+    type: object
 info:
   contact: {}
 paths:
@@ -58,6 +67,50 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/entities.AllWeaponsDTO'
+      tags:
+      - weapons
+    post:
+      parameters:
+      - description: оружие
+        in: body
+        name: weapon
+        required: true
+        schema:
+          $ref: '#/definitions/entities.WeaponDTO'
+      responses:
+        "201":
+          description: Created
+      tags:
+      - weapons
+  /weapons/{id}:
+    delete:
+      parameters:
+      - description: идентификатор оружия
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+      tags:
+      - weapons
+    patch:
+      parameters:
+      - description: идентификатор оружия
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: оружие
+        in: body
+        name: weapon
+        required: true
+        schema:
+          $ref: '#/definitions/entities.WeaponDTO'
+      responses:
+        "200":
+          description: OK
       tags:
       - weapons
 swagger: "2.0"

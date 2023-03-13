@@ -60,6 +60,76 @@ const docTemplate = `{
                         }
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "weapons"
+                ],
+                "parameters": [
+                    {
+                        "description": "оружие",
+                        "name": "weapon",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entities.WeaponDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/weapons/{id}": {
+            "delete": {
+                "tags": [
+                    "weapons"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "идентификатор оружия",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "weapons"
+                ],
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "идентификатор оружия",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "оружие",
+                        "name": "weapon",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entities.WeaponDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
             }
         }
     },
@@ -98,6 +168,20 @@ const docTemplate = `{
                 },
                 "id": {
                     "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "weight": {
+                    "type": "number"
+                }
+            }
+        },
+        "entities.WeaponDTO": {
+            "type": "object",
+            "properties": {
+                "attack": {
+                    "type": "number"
                 },
                 "name": {
                     "type": "string"
