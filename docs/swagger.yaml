@@ -1,0 +1,63 @@
+definitions:
+  entities.AllWeaponsDTO:
+    properties:
+      maxAttack:
+        type: number
+      maxWeight:
+        type: number
+      minAttack:
+        type: number
+      minWeight:
+        type: number
+      quantity:
+        type: integer
+      weapons:
+        items:
+          $ref: '#/definitions/entities.Weapon'
+        type: array
+    type: object
+  entities.Weapon:
+    properties:
+      attack:
+        type: number
+      id:
+        type: integer
+      name:
+        type: string
+      weight:
+        type: number
+    type: object
+info:
+  contact: {}
+paths:
+  /weapons:
+    get:
+      parameters:
+      - description: 'атака. пример: [мин],[макс]'
+        in: query
+        name: attack
+        type: string
+      - description: 'масса. пример: [мин],[макс]'
+        in: query
+        name: weight
+        type: string
+      - description: 'сортировать по. пример: [имя поля],[asc/desc]'
+        in: query
+        name: orderBy
+        type: string
+      - description: ограничение
+        in: query
+        name: limit
+        type: integer
+      - description: смещение
+        in: query
+        name: offset
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.AllWeaponsDTO'
+      tags:
+      - weapons
+swagger: "2.0"

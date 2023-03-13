@@ -1,0 +1,100 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/weapons": {
+            "get": {
+                "tags": [
+                    "weapons"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "атака. пример: [мин],[макс]",
+                        "name": "attack",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "масса. пример: [мин],[макс]",
+                        "name": "weight",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "сортировать по. пример: [имя поля],[asc/desc]",
+                        "name": "orderBy",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "ограничение",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "смещение",
+                        "name": "offset",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/entities.AllWeaponsDTO"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "entities.AllWeaponsDTO": {
+            "type": "object",
+            "properties": {
+                "maxAttack": {
+                    "type": "number"
+                },
+                "maxWeight": {
+                    "type": "number"
+                },
+                "minAttack": {
+                    "type": "number"
+                },
+                "minWeight": {
+                    "type": "number"
+                },
+                "quantity": {
+                    "type": "integer"
+                },
+                "weapons": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/entities.Weapon"
+                    }
+                }
+            }
+        },
+        "entities.Weapon": {
+            "type": "object",
+            "properties": {
+                "attack": {
+                    "type": "number"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "weight": {
+                    "type": "number"
+                }
+            }
+        }
+    }
+}

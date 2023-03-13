@@ -4,6 +4,8 @@ CREATE DATABASE pocu;
 
 \connect pocu
 
+SET CLIENT_ENCODING = 'UTF-8';
+
 CREATE TABLE weapon(
                        weapon_id SMALLSERIAL NOT NULL,
                        name VARCHAR(40) NOT NULL,
@@ -58,3 +60,9 @@ CREATE TABLE enemy(
                       attack_speed REAL NOT NULL,
                       stamina REAL NOT NULL
 );
+
+INSERT INTO weapon (name, attack, weight)
+VALUES
+    ('Двуручник тёмной луны', 80.5, 10.0),
+    ('Полуторный меч', 138.5, 9.0),
+    ('Редувия', 40.0, 2.5);
