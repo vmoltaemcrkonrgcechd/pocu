@@ -15,6 +15,29 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/armor": {
+            "post": {
+                "tags": [
+                    "armor"
+                ],
+                "parameters": [
+                    {
+                        "description": "броня",
+                        "name": "armor",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entities.ArmorDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
         "/weapons": {
             "get": {
                 "tags": [
@@ -157,6 +180,20 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/entities.Weapon"
                     }
+                }
+            }
+        },
+        "entities.ArmorDTO": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "protection": {
+                    "type": "number"
+                },
+                "weight": {
+                    "type": "number"
                 }
             }
         },

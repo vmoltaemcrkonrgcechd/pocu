@@ -16,6 +16,15 @@ definitions:
           $ref: '#/definitions/entities.Weapon'
         type: array
     type: object
+  entities.ArmorDTO:
+    properties:
+      name:
+        type: string
+      protection:
+        type: number
+      weight:
+        type: number
+    type: object
   entities.Weapon:
     properties:
       attack:
@@ -39,6 +48,20 @@ definitions:
 info:
   contact: {}
 paths:
+  /armor:
+    post:
+      parameters:
+      - description: броня
+        in: body
+        name: armor
+        required: true
+        schema:
+          $ref: '#/definitions/entities.ArmorDTO'
+      responses:
+        "201":
+          description: Created
+      tags:
+      - armor
   /weapons:
     get:
       parameters:
